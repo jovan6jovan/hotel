@@ -1,5 +1,5 @@
-import React from 'react';
-import { IoLogoInstagram, IoLogoTwitter, IoLogoFacebook } from 'react-icons/io';
+import React from "react";
+import { IoLogoInstagram, IoLogoTwitter, IoLogoFacebook } from "react-icons/io";
 
 const Footer = () => {
   return (
@@ -42,7 +42,7 @@ const Footer = () => {
         </div>
       </section>
       <section className="dev-info">
-        <p>&copy; 2019 Company Name. All rights reserved.</p>
+        <p>&copy; 2020 Company Name. All rights reserved.</p>
         <p>
           Created by:{" "}
           <a

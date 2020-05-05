@@ -1,9 +1,5 @@
 import React from "react";
 
-class SingleRoom extends React.Component {
-  render() {
-    return <div>SingleRoom Page</div>;
-  }
-}
+const SingleRoom = () => <div>SingleRoom Page</div>;
 
 export default SingleRoom;

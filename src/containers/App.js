@@ -12,7 +12,7 @@ import Footer from "../components/Footer";
 
 const App = () => {
   return (
-    <React.Fragment>
+    <>
       <Navbar />
       <Switch>
         <Route exact path="/" component={Home} />
@@ -22,7 +22,7 @@ const App = () => {
         <Route component={Error} />
       </Switch>
       <Footer />
-    </React.Fragment>
+    </>
   );
 };
 

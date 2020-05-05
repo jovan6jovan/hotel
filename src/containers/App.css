@@ -7,12 +7,11 @@
 }
 
 :root {
-  --primaryColor: #af9a7d;
+  --primaryColor: #fca311;
   --mainWhite: #fff;
   --offWhite: #f7f7f7;
   --mainBlack: #222;
-  --mainGrey: #ececec;
-  --darkGrey: #cfcfcf;
+  --mainGrey: #e5e5e5;
   --mainTransition: all 0.3s ease-in-out;
   --mainSpacing: 3px;
   --lightShadow: 2px 5px 3px 0px rgba(0, 0, 0, 0.5);
@@ -68,11 +67,16 @@ ul {
   list-style: none;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 .btn-primary {
   display: inline-block;
   text-decoration: none;
   letter-spacing: var(--mainSpacing);
-  color: var(--mainBlack);
+  color: var(--mainWhite);
   background: var(--primaryColor);
   padding: 0.4rem 0.9rem;
   border: 3px solid var(--primaryColor);
@@ -113,7 +117,7 @@ ul {
   top: 0;
   left: 0;
   width: 100%;
-  padding: 0.75rem 2rem;
+  padding: 0 2rem;
   background: var(--offWhite);
   z-index: 1;
 }
@@ -146,7 +150,7 @@ ul {
   display: block;
   text-decoration: none;
   padding: 1rem 0;
-  color: var(--mainBlack);
+  color: var(--primaryColor);
   transition: var(--mainTransition);
   text-align: center;
   font-size: 1rem;
@@ -156,6 +160,10 @@ ul {
 
 .nav-links a:hover {
   color: var(--primaryColor);
+}
+
+.logo {
+  width: 120px;
 }
 
 .show-nav {
@@ -385,7 +393,7 @@ ul {
 }
 
 .services {
-  background: var(--darkGrey);
+  background: var(--mainGrey);
   text-align: center;
 }
 
@@ -523,7 +531,7 @@ ul {
 }
 
 .room-info {
-  background: var(--darkGrey);
+  background: var(--mainGrey);
   text-transform: capitalize;
   padding: 0.5rem 0;
   text-align: center;

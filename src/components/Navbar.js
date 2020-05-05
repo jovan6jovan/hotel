@@ -1,50 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ReactComponent as Logo } from "../assets/logo2.svg";
+import logo from "../assets/hotel-logo.svg";
 import { IoMdMenu } from "react-icons/io";
 
-class Navbar extends React.Component {
-  state = {
-    isOpen: false,
-  };
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
-  handleToggle = () => {
-    this.setState({ isOpen: !this.state.isOpen });
-  };
+  const handleToggle = () => setIsOpen(!isOpen);
 
-  render() {
-    return (
-      <nav className="navbar">
-        <div className="nav-center">
-          <div className="nav-header">
-            <Link to="/">
-              <Logo />
-            </Link>
-            <button
-              type="button"
-              className="nav-btn"
-              onClick={this.handleToggle}
-            >
-              <IoMdMenu className="nav-icon" />
-            </button>
-          </div>
-          <ul
-            className={this.state.isOpen ? "nav-links show-nav" : "nav-links"}
-          >
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/rooms">Rooms</Link>
-            </li>
-            <li>
-              <Link to="/contact">Contact</Link>
-            </li>
-          </ul>
+  return (
+    <nav className="navbar">
+      <div className="nav-center">
+        <div className="nav-header">
+          <Link to="/">
+            <img className="logo" src={logo} alt="hotel logo" />
+          </Link>
+          <button type="button" className="nav-btn" onClick={handleToggle}>
+            <IoMdMenu className="nav-icon" />
+          </button>
         </div>
-      </nav>
-    );
-  }
-}
+        <ul className={isOpen ? "nav-links show-nav" : "nav-links"}>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/rooms">Rooms</Link>
+          </li>
+          <li>
+            <Link to="/contact">Contact</Link>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
+};
 
 export default Navbar;

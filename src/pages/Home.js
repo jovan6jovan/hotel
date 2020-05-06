@@ -15,7 +15,7 @@ const Home = () => {
           subtitle="deluxe rooms starting at $199"
         >
           <Link to="/rooms" className="btn-primary">
-            Our rooms
+            Explore our rooms
           </Link>
         </Banner>
       </Hero>

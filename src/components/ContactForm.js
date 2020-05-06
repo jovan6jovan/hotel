@@ -23,7 +23,11 @@ const ContactForm = () => (
       </div>
 
       <div id="contact-form-container">
-        <form className="contact-form" action="" method="POST">
+        <form
+          className="contact-form"
+          method="POST"
+          onClick={(e) => e.preventDefault()}
+        >
           <p>
             <label htmlFor="name">
               Your name <span className="star">*</span>

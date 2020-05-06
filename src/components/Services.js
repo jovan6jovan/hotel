@@ -31,7 +31,7 @@ class Services extends React.Component {
       },
       {
         icon: <IoMdRestaurant />,
-        title: "best food",
+        title: "delicious food",
         info:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut scelerisque sollicitudin rhoncus. Vivamus venenatis nunc eu hendrerit lobortis. Maecenas faucibus ex sit amet ante vulputate efficitur.",
       },

@@ -1,29 +1,25 @@
-import React from "react";
+import React, { createContext, useState, useEffect } from "react";
 import items from "./data/data";
 
-const RoomContext = React.createContext();
+const RoomContext = createContext();
 
-class RoomProvider extends React.Component {
-  state = {
-    rooms: [],
-    sortedRooms: [],
-    featuredRooms: [],
-    loading: true,
-  };
+const RoomProvider = (props) => {
+  const [rooms, setRooms] = useState([]);
+  const [sortedRooms, setSortedRooms] = useState([]);
+  const [featuredRooms, setFeaturedRooms] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  componentDidMount() {
-    let rooms = this.formatData(items);
+  useEffect(() => {
+    let rooms = formatData(items);
     let featuredRooms = rooms.filter((room) => room.featured === true);
 
-    this.setState({
-      rooms,
-      featuredRooms,
-      sortedRooms: rooms,
-      loading: false,
-    });
-  }
+    setRooms(rooms);
+    setFeaturedRooms(featuredRooms);
+    setSortedRooms(rooms);
+    setLoading(false);
+  }, []);
 
-  formatData = (items) => {
+  const formatData = (items) => {
     let tempItems = items.map((item) => {
       let id = item.sys.id;
       let images = item.fields.images.map((image) => image.fields.file.url);
@@ -39,14 +35,12 @@ class RoomProvider extends React.Component {
     return tempItems;
   };
 
-  render() {
-    return (
-      <RoomContext.Provider value={{ ...this.state }}>
-        {this.props.children}
-      </RoomContext.Provider>
-    );
-  }
-}
+  return (
+    <RoomContext.Provider value={{ rooms, sortedRooms, featuredRooms, loading }}>
+      {props.children}
+    </RoomContext.Provider>
+  );
+};
 
 const RoomConsumer = RoomContext.Consumer;
 

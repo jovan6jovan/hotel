@@ -23,6 +23,7 @@ const RoomProvider = (props) => {
     let tempItems = items.map((item) => {
       let id = item.sys.id;
       let images = item.fields.images.map((image) => image.fields.file.url);
+      
       let room = {
         ...item.fields,
         images,
@@ -35,8 +36,15 @@ const RoomProvider = (props) => {
     return tempItems;
   };
 
+  const getRoom = (slug) => {
+    let tempRooms = [...rooms];
+    const room = tempRooms.find(room => room.slug === slug);
+
+    return room;
+  }
+
   return (
-    <RoomContext.Provider value={{ rooms, sortedRooms, featuredRooms, loading }}>
+    <RoomContext.Provider value={{ rooms, sortedRooms, featuredRooms, loading, getRoom }}>
       {props.children}
     </RoomContext.Provider>
   );

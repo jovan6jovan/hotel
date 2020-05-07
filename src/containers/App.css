@@ -622,14 +622,18 @@ img {
   line-height: 1.5;
 }
 
-.info h3,
-.info h6 {
+.info h3 {
   text-transform: capitalize;
   letter-spacing: var(--mainSpacing);
 }
 
 .info h6 {
+  text-transform: capitalize;
   font-weight: 300;
+}
+
+.info h6 > span {
+  font-weight: 700;
 }
 
 .room-extras {

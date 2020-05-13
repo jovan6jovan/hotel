@@ -13,7 +13,6 @@ const RoomContainer = () => {
 
         return loading ? <Loading /> : (
           <>
-            Hello from Rooms Container
             <RoomsFilter rooms={rooms} />
             <RoomsList rooms={sortedRooms} />
           </>

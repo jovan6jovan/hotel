@@ -17,16 +17,31 @@ const RoomsFilter = ({ rooms }) => {
     handleChange,
   } = useContext(RoomContext);
 
-  const getUniqueValues = (itemss, value) => [...new Set(itemss.map(item => item[value]))];
+  const getUniqueValues = (items, value) => [
+    ...new Set(items.map((item) => item[value])),
+  ];
 
   let types = getUniqueValues(rooms, "type");
   types = ["all", ...types];
-
   types = types.map((type, idx) => {
     return (
-    <option value={type} key={idx}>{type}</option>
-    )
-  })
+      <option value={type} key={idx}>
+        {type}
+      </option>
+    );
+  });
+
+  let numberOfGuests = getUniqueValues(rooms, "capacity");
+  numberOfGuests = numberOfGuests.map((number, idx) => {
+    return (
+      <option value={number} key={idx}>
+        {number}
+      </option>
+    );
+  });
+
+  // Ovo daje undefined undefined, provali zasto!
+  console.log(price, maxPrice);
 
   return (
     <section className="filter-container">
@@ -43,6 +58,31 @@ const RoomsFilter = ({ rooms }) => {
           >
             {types}
           </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="capacity">Number of guests</label>
+          <select
+            name="capacity"
+            id="capacity"
+            value={capacity}
+            className="form-control"
+            onChange={handleChange}
+          >
+            {numberOfGuests}
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="price">Room price ${price}</label>
+          <input
+            type="range"
+            name="price"
+            min={minPrice}
+            max={maxPrice}
+            id="price"
+            value={price}
+            onChange={handleChange}
+            className="form-control"
+          />
         </div>
       </form>
     </section>

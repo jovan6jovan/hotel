@@ -5,12 +5,12 @@ const RoomContext = createContext();
 
 const RoomProvider = (props) => {
   const [rooms, setRooms] = useState([]);
-  const [sortedRooms, setSortedRooms] = useState([]);
+  const [filteredRooms, setFilteredRooms] = useState([]);
   const [featuredRooms, setFeaturedRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [type, setType] = useState("all");
-  const [capacity, setCapacity] = useState(1);
-  const [price, setPrice] = useState(0);
+  let [capacity, setCapacity] = useState(1);
+  let [price, setPrice] = useState(0);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
   const [minSize, setMinSize] = useState(0);
@@ -26,7 +26,7 @@ const RoomProvider = (props) => {
 
     setRooms(rooms);
     setFeaturedRooms(featuredRooms);
-    setSortedRooms(rooms);
+    setFilteredRooms(rooms);
     setLoading(false);
     setPrice(maxPrice);
     setMaxPrice(maxPrice);
@@ -50,29 +50,40 @@ const RoomProvider = (props) => {
     return tempItems;
   };
 
+  useEffect(() => {
+    filterRooms();
+  }, [type, capacity, price]);
+
   const handleChange = e => {
-    const value = e.type === "checkbox" ? e.target.checked : e.target.value;
+    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
     const name = e.target.name;
 
-    // Sredi ovo! filterRooms f-ja ne uradi svoj posao istog trenutka kada se promeni tip sobe
     switch(name) {
       case "type":
-        return setType(value, filterRooms());
+        return setType(value);
       case "capacity":
-        return setCapacity(value, filterRooms());
+        return setCapacity(value);
       case "price":
-        return setPrice(value, filterRooms());
+        return setPrice(value);
     }
   }
 
   const filterRooms = () => {
     let tempRooms = [...rooms];
+    capacity = parseInt(capacity);
+    price = parseInt(price);
 
     if(type !== "all") {
       tempRooms = tempRooms.filter(room => room.type === type);
     }
 
-    setSortedRooms(tempRooms);
+    if(capacity !== 1) {
+      tempRooms = tempRooms.filter(room => room.capacity >= capacity);
+    }
+
+    tempRooms = tempRooms.filter(room => room.price <= price);
+
+    setFilteredRooms(tempRooms);
   }
 
   const getRoom = (slug) => {
@@ -83,7 +94,7 @@ const RoomProvider = (props) => {
   }
 
   return (
-    <RoomContext.Provider value={{ rooms, sortedRooms, featuredRooms, loading, getRoom, handleChange }}>
+    <RoomContext.Provider value={{ rooms, filteredRooms, featuredRooms, loading, getRoom, handleChange }}>
       {props.children}
     </RoomContext.Provider>
   );

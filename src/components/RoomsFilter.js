@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { RoomContext } from "../context";
 
 import Title from "./Title";
+import Room from "./Room";
 
 const RoomsFilter = ({ rooms }) => {
   const {
@@ -39,9 +40,6 @@ const RoomsFilter = ({ rooms }) => {
       </option>
     );
   });
-
-  // Ovo daje undefined undefined, provali zasto!
-  console.log(price, maxPrice);
 
   return (
     <section className="filter-container">

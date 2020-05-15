@@ -21,8 +21,8 @@ const RoomProvider = (props) => {
   useEffect(() => {
     let rooms = formatData(items);
     let featuredRooms = rooms.filter((room) => room.featured === true);
-    let maxPrice = Math.max(...rooms.map(room => room.price));
-    let maxSize = Math.max(...rooms.map(room => room.size));
+    let maxPrice = Math.max(...rooms.map((room) => room.price));
+    let maxSize = Math.max(...rooms.map((room) => room.size));
 
     setRooms(rooms);
     setFeaturedRooms(featuredRooms);
@@ -37,7 +37,7 @@ const RoomProvider = (props) => {
     let tempItems = items.map((item) => {
       let id = item.sys.id;
       let images = item.fields.images.map((image) => image.fields.file.url);
-      
+
       let room = {
         ...item.fields,
         images,
@@ -54,11 +54,12 @@ const RoomProvider = (props) => {
     filterRooms();
   }, [type, capacity, price]);
 
-  const handleChange = e => {
-    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+  const handleChange = (e) => {
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
     const name = e.target.name;
 
-    switch(name) {
+    switch (name) {
       case "type":
         return setType(value);
       case "capacity":
@@ -66,35 +67,52 @@ const RoomProvider = (props) => {
       case "price":
         return setPrice(value);
     }
-  }
+  };
 
   const filterRooms = () => {
     let tempRooms = [...rooms];
     capacity = parseInt(capacity);
     price = parseInt(price);
 
-    if(type !== "all") {
-      tempRooms = tempRooms.filter(room => room.type === type);
+    if (type !== "all") {
+      tempRooms = tempRooms.filter((room) => room.type === type);
     }
 
-    if(capacity !== 1) {
-      tempRooms = tempRooms.filter(room => room.capacity >= capacity);
+    if (capacity !== 1) {
+      tempRooms = tempRooms.filter((room) => room.capacity >= capacity);
     }
 
-    tempRooms = tempRooms.filter(room => room.price <= price);
+    tempRooms = tempRooms.filter((room) => room.price <= price);
 
     setFilteredRooms(tempRooms);
-  }
+  };
 
   const getRoom = (slug) => {
     let tempRooms = [...rooms];
-    const room = tempRooms.find(room => room.slug === slug);
+    const room = tempRooms.find((room) => room.slug === slug);
 
     return room;
-  }
+  };
 
   return (
-    <RoomContext.Provider value={{ rooms, filteredRooms, featuredRooms, loading, getRoom, handleChange }}>
+    <RoomContext.Provider
+      value={{
+        rooms,
+        filteredRooms,
+        featuredRooms,
+        capacity,
+        price,
+        minPrice,
+        maxPrice,
+        minSize,
+        maxSize,
+        breakfast,
+        pets,
+        loading,
+        getRoom,
+        handleChange,
+      }}
+    >
       {props.children}
     </RoomContext.Provider>
   );

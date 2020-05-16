@@ -52,7 +52,7 @@ const RoomProvider = (props) => {
 
   useEffect(() => {
     filterRooms();
-  }, [type, capacity, price]);
+  }, [type, capacity, price, minSize, maxSize, breakfast, pets]);
 
   const handleChange = (e) => {
     const value =
@@ -66,6 +66,14 @@ const RoomProvider = (props) => {
         return setCapacity(value);
       case "price":
         return setPrice(value);
+      case "minSize":
+        return setMinSize(value);
+      case "maxSize":
+        return setMaxSize(value);
+      case "breakfast":
+        return setBreakfast(value);
+      case "pets":
+        return setPets(value);
     }
   };
 
@@ -83,6 +91,16 @@ const RoomProvider = (props) => {
     }
 
     tempRooms = tempRooms.filter((room) => room.price <= price);
+
+    tempRooms = tempRooms.filter((room) => room.size >= minSize && room.size <=maxSize);
+
+    if(breakfast) {
+      tempRooms = tempRooms.filter((room) => room.breakfast === true);
+    }
+
+    if(pets) {
+      tempRooms = tempRooms.filter((room) => room.pets === true);
+    }
 
     setFilteredRooms(tempRooms);
   };

@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import items from "./data/data";
+import Client from "./Contentful";
 
 const RoomContext = createContext();
 
@@ -19,18 +19,26 @@ const RoomProvider = (props) => {
   const [pets, setPets] = useState(false);
 
   useEffect(() => {
-    let rooms = formatData(items);
-    let featuredRooms = rooms.filter((room) => room.featured === true);
-    let maxPrice = Math.max(...rooms.map((room) => room.price));
-    let maxSize = Math.max(...rooms.map((room) => room.size));
+    Client.getEntries({
+      content_type: "hotelData",
+      order: "sys.createdAt"
+    })
+    .then((response) => {
+      let rooms = formatData(response.items);
+      let featuredRooms = rooms.filter((room) => room.featured === true);
+      let maxPrice = Math.max(...rooms.map((room) => room.price));
+      let maxSize = Math.max(...rooms.map((room) => room.size));
+  
+      setRooms(rooms);
+      setFeaturedRooms(featuredRooms);
+      setFilteredRooms(rooms);
+      setLoading(false);
+      setPrice(maxPrice);
+      setMaxPrice(maxPrice);
+      setMaxSize(maxSize);
+    })
+    .catch(console.error);
 
-    setRooms(rooms);
-    setFeaturedRooms(featuredRooms);
-    setFilteredRooms(rooms);
-    setLoading(false);
-    setPrice(maxPrice);
-    setMaxPrice(maxPrice);
-    setMaxSize(maxSize);
   }, []);
 
   const formatData = (items) => {

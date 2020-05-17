@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "lightbox2/dist/css/lightbox.css";
 import "lightbox2/dist/js/lightbox-plus-jquery";
@@ -8,9 +8,6 @@ import { StyledHero } from "../components/StyledHero";
 
 const SingleRoom = (props) => {
   const [slug] = useState(props.match.params.slug);
-
-  // useEffect(() => {}, []);
-
   const { getRoom } = useContext(RoomContext);
   const room = getRoom(slug);
 

@@ -32,7 +32,7 @@ const ContactForm = () => (
             <label htmlFor="name">
               Your name <span className="star">*</span>
             </label>
-            <input type="text" name="name" minlength="3" required />
+            <input type="text" name="name" minLength="3" required />
           </p>
           <p>
             <label htmlFor="email">

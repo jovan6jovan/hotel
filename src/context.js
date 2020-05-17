@@ -11,7 +11,7 @@ const RoomProvider = (props) => {
   const [type, setType] = useState("all");
   let [capacity, setCapacity] = useState(1);
   let [price, setPrice] = useState(0);
-  const [minPrice, setMinPrice] = useState(0);
+  const [minPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
   const [minSize, setMinSize] = useState(0);
   const [maxSize, setMaxSize] = useState(0);
@@ -51,8 +51,34 @@ const RoomProvider = (props) => {
   };
 
   useEffect(() => {
+    const filterRooms = () => {
+      let tempRooms = [...rooms];
+  
+      if (type !== "all") {
+        tempRooms = tempRooms.filter((room) => room.type === type);
+      }
+  
+      if (parseInt(capacity) !== 1) {
+        tempRooms = tempRooms.filter((room) => room.capacity >= parseInt(capacity));
+      }
+  
+      tempRooms = tempRooms.filter((room) => room.price <= parseInt(price));
+  
+      tempRooms = tempRooms.filter((room) => room.size >= minSize && room.size <=maxSize);
+  
+      if(breakfast) {
+        tempRooms = tempRooms.filter((room) => room.breakfast === true);
+      }
+  
+      if(pets) {
+        tempRooms = tempRooms.filter((room) => room.pets === true);
+      }
+  
+      setFilteredRooms(tempRooms);
+    };
+
     filterRooms();
-  }, [type, capacity, price, minSize, maxSize, breakfast, pets]);
+  }, [rooms, type, capacity, price, minSize, maxSize, breakfast, pets]);
 
   const handleChange = (e) => {
     const value =
@@ -74,35 +100,9 @@ const RoomProvider = (props) => {
         return setBreakfast(value);
       case "pets":
         return setPets(value);
+      default:
+        console.log("Made by: jovan6jovan");
     }
-  };
-
-  const filterRooms = () => {
-    let tempRooms = [...rooms];
-    capacity = parseInt(capacity);
-    price = parseInt(price);
-
-    if (type !== "all") {
-      tempRooms = tempRooms.filter((room) => room.type === type);
-    }
-
-    if (capacity !== 1) {
-      tempRooms = tempRooms.filter((room) => room.capacity >= capacity);
-    }
-
-    tempRooms = tempRooms.filter((room) => room.price <= price);
-
-    tempRooms = tempRooms.filter((room) => room.size >= minSize && room.size <=maxSize);
-
-    if(breakfast) {
-      tempRooms = tempRooms.filter((room) => room.breakfast === true);
-    }
-
-    if(pets) {
-      tempRooms = tempRooms.filter((room) => room.pets === true);
-    }
-
-    setFilteredRooms(tempRooms);
   };
 
   const getRoom = (slug) => {

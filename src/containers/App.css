@@ -597,9 +597,15 @@ img {
   grid-column-gap: 50px;
 }
 
-.single-room-images img {
+.single-room-image {
   width: 100%;
   display: block;
+  filter: brightness(0.7);
+  transition: var(--mainTransition);
+}
+
+.single-room-image:hover {
+  filter: brightness(1);
 }
 
 .single-room-info {

@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import "lightbox2/dist/css/lightbox.css";
+import "lightbox2/dist/js/lightbox-plus-jquery";
 import Banner from "../components/Banner";
 import { RoomContext } from "../context";
 import { StyledHero } from "../components/StyledHero";
 
 const SingleRoom = (props) => {
-  const [slug, setSlug] = useState(props.match.params.slug);
+  const [slug] = useState(props.match.params.slug);
 
   // useEffect(() => {}, []);
 
@@ -48,7 +50,13 @@ const SingleRoom = (props) => {
       </StyledHero>
       <section className="single-room">
         <div className="single-room-images">
-          {restOfTheImages.map((image, idx) => <img key={idx} src={image} alt={name} />)}
+          {restOfTheImages.map((image, idx) => {
+            return (
+              <a key={idx} href={image} data-lightbox="room-images">
+                <img src={image} alt={name} className="single-room-image" />
+              </a>
+            )
+          })}
         </div>
         <div className="single-room-info">
           <article className="desc">
